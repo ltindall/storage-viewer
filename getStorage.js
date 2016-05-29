@@ -4,4 +4,4 @@ $(document).ready(function(){
    		console.log(json);
     	$('#fetch').html('<h2>Facts for apocalypse</h2>' + JSON.stringify(json, null, 2) );
  	});
-}
+}); 
