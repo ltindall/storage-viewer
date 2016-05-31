@@ -1,21 +1,23 @@
 
-var restService = 'https://rowlf.crbs.ucsd.edu:1994/api/'; 
 $(document).ready(function(){
 
+  var restService = 'https://rowlf.crbs.ucsd.edu:1994/api/'; 
   // get list of all storage nodes
   var storageServers = []
   $.ajax(
   {
+    async: false,  
     type: "GET",
     url: restService + 'facts/operatingsystem/Solaris',
-    data: "{}",
     contentType: "application/json; charset=utf-8",
     dataType: "json",
-    cache: false,
     success: function (storageServersJson) {
-     
+	     
+      var i ;  
       for (i = 0; i <storageServersJson.length; i++){
+
         storageServers.push(storageServersJson[i].certname); 
+
       }
                                             
     },
@@ -24,22 +26,24 @@ $(document).ready(function(){
                                         }
   });
 
+
+
+
   if(storageServers.length > 0){
 
-    var query = 'query=["or"'; 
+    var query = 'query=["or",'; 
     query += $.map(storageServers, function(serverName, index){
-        return ',["=", "certname", "'+serverName+'"]'; 
+        return '["=", "certname", "'+serverName+'"]'; 
       }).join() + ']'; 
-    
+    console.log(query); 
     var encodedQuery = encodeURI(query); 
     $.ajax(
     {
+      async: false, 
       type: "GET",
       url: restService + 'factsets?'+encodedQuery,
-      data: "{}",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      cache: false,
       success: function (storageData) {
       
         $('#storage').append('<tbody>'); 
