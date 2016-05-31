@@ -8,38 +8,57 @@
   
   <!-- Bootstrap css and js -->
  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-  <!-- getStorage js --> 
+  <link rel="stylesheet"
+  href="http://getbootstrap.com/examples/cover/cover.css">
 	</head>
 
 	<body>
-    <div class="container">
-      <table class="table table-hover" id="storage">
-        <thead>
-          <tr>
-            <th>Hostname</th>
-            <th>OS</th>
-            <th>OS version</th>
-            <th>IP</th> 
-            <th>model</th>
-            <th>serial</th>
-          </tr>
-        </thead>
-      </table>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          
+          <div class="masthead clearfix">
+            <h3 class="masthead-brand">Storage Viewer</h3>
+            <nav>
+              <ul class="nav masthead-nav">
+                <li class="active"><a href="#">Home</a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="inner cover">
+            <table class="table table-hover" id="storage">
+              <thead>
+                <tr>
+                  <th>Hostname</th>
+                  <th>OS</th>
+                  <th>OS version</th>
+                  <th>IP</th> 
+                  <th>model</th>
+                  <th>serial</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>CRBS 2016</p>
+            </div>
+        </div>
+      </div>
     </div> 
-		<section id="fetch">
-		</section>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="getStorage.js"></script>
+  <script src="getStorage.js"></script>
 	</body>
 </html>
