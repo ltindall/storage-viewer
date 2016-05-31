@@ -49,7 +49,13 @@ $(document).ready(function(){
         $('#storage').append('<tbody>'); 
         $('#storage').append(
           $.map(storageData, function(group, index){
-            return '<tr><td>'+group.facts.fqdn+'</td></tr>'; 
+            return '<tr><td>' + group.facts.fqdn + '</td><td>'
+              + group.facts.operatingsystem + '</td><td>'
+              + group.facts.operatingsystemrelease + '</td><td>'
+              + group.facts.ipaddress + '</td><td>'
+              + group.facts.productname + '</td><td>'
+              + group.facts.serialnumber + '</td>' 
+              +'</tr>'; 
           }).join()
         ); 
         /*
