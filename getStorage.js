@@ -52,9 +52,12 @@ $(document).ready(function(){
             return '<tr><td>' + group.facts.fqdn + '</td><td>'
               + group.facts.operatingsystem + '</td><td>'
               + group.facts.operatingsystemrelease + '</td><td>'
+              + group.facts.kernelversion + '</td><td>'
+              + group.facts.last_run + '</td><td>'
               + group.facts.ipaddress + '</td><td>'
               + group.facts.productname + '</td><td>'
-              + group.facts.serialnumber + '</td>' 
+              + group.facts.serialnumber + '</td>'
+               
               +'</tr>'; 
           }).join()
         ); 
