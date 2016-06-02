@@ -49,16 +49,37 @@ $(document).ready(function(){
         $('#storage').append('<tbody>'); 
         $('#storage').append(
           $.map(storageData, function(group, index){
-            var factKeys = Object.keys(group); 
-            console.log(factKeys); 
-            return '<tr><td>' + group.facts.fqdn + '</td><td>'
+            var factKeys = Object.keys(group.facts); 
+            //console.log(factKeys); 
+            var zfsList = []; 
+            var zfsListPretty = []; 
+            var zfsListReport = [];  
+	    for( var i = 0; i < factKeys.length; ++i){
+              if(factKeys[i].substring(0,9) == "zfs_space"){
+                zfsList.push(factKeys[i]);
+                zfsListPretty.push(factKeys[i].substring(10)); 
+                //TODO: insert logic here to format size (gb, mb, kb) before adding to string 
+                zfsListReport.push(factKeys[i].substring(10)+": "+group.facts[factKeys[i]]+"\n"); 
+              }
+	    }
+            zfsListReport.sort();
+            zfsListReport.reverse(); 
+            zfsListFormatted = ""; 
+            for(var i = 0; i < zfsListReport.length; ++i) {
+              zfsListFormatted += zfsListReport[i]; 
+            } 
+            console.log(zfsListPretty); 
+            console.log(zfsList); 
+
+	    return '<tr><td>' + group.facts.fqdn + '</td><td>'
               + group.facts.operatingsystem + '</td><td>'
               + group.facts.operatingsystemrelease + '</td><td>'
               + group.facts.kernelversion + '</td><td>'
               + group.facts.last_run + '</td><td>'
               + group.facts.ipaddress + '</td><td>'
               + group.facts.productname + '</td><td>'
-              + group.facts.serialnumber + '</td>'
+              + group.facts.serialnumber + '</td><td>'
+              + '<pre>'+zfsListFormatted + '</pre></td>'
                
               +'</tr>'; 
           }).join()
