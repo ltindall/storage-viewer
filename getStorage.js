@@ -49,6 +49,8 @@ $(document).ready(function(){
         $('#storage').append('<tbody>'); 
         $('#storage').append(
           $.map(storageData, function(group, index){
+            var factKeys = Object.keys(group); 
+            console.log(factKeys); 
             return '<tr><td>' + group.facts.fqdn + '</td><td>'
               + group.facts.operatingsystem + '</td><td>'
               + group.facts.operatingsystemrelease + '</td><td>'
