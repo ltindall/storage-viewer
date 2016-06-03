@@ -53,15 +53,22 @@ $(document).ready(function(){
             //console.log(factKeys); 
             var zfsList = []; 
             var zfsListPretty = []; 
-            var zfsListReport = [];  
-	    for( var i = 0; i < factKeys.length; ++i){
+            var zfsListReport = [];
+            var poolValues = [];   
+	          for( var i = 0; i < factKeys.length; ++i){
               if(factKeys[i].substring(0,9) == "zfs_space"){
                 zfsList.push(factKeys[i]);
                 zfsListPretty.push(factKeys[i].substring(10)); 
                 //TODO: insert logic here to format size (gb, mb, kb) before adding to string 
-                zfsListReport.push(factKeys[i].substring(10)+": "+group.facts[factKeys[i]]+"\n"); 
+
+                var searchString = "zfs_space_"; 
+                var poolName = factKeys[i].substring(factKeys[i].indexOf(searchStringi)+searchString.length()); 
+                zfsListReport.push(poolName+": "+group.facts[factKeys[i]]+"\n"); 
+
+                poolValues.push(group.facts[factKey[i]].split(',')); 
               }
-	    }
+	          }
+            console.log("pool values : "+poolValues); 
             zfsListReport.sort();
             zfsListReport.reverse(); 
             zfsListFormatted = ""; 
