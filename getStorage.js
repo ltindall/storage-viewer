@@ -120,6 +120,8 @@ $(document).ready(function(){
               var availableSpace =  zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
               var usedSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[0];
               var totalSpace = usedSpace + availableSpace;  
+              console.log("available = "+availableSpace); 
+              console.log("usedSpace = ",usedSpace); 
               console.log("totalSpace ="+totalSpace); 
 
               /*
@@ -150,7 +152,7 @@ $(document).ready(function(){
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
-              console.log("used space = "+usedSpace); 
+              //console.log("used space = "+usedSpace); 
               //console.log("zfslistformatted "+ zfsListFormatted);
               //console.log("zfslistreport "+zfsListReport);
         
