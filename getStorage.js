@@ -177,7 +177,18 @@ $(document).ready(function(){
                 }
 
                 if(newPoolFound){
-                  zfsListFormatted += "Summary for "+zfsPoolName+"-- Used Space: "+usedSpace/1024+" G  Total Space: "+totalSpace/1024+" G  Available Space: "+Number((totalSpace/1024) - (usedSpace/1024))+" G \n"+'<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'+100*(usedSpace/totalSpace) +'%"><span class="sr-only">'+100*(usedSpace/totalSpace)+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div></div>'; 
+                  zfsListFormatted += "Summary for "+zfsPoolName
+                    +"-- Used Space: "+usedSpace/1024
+                    +" G  Total Space: "+totalSpace/1024
+                    +" G  Available Space: "+Number((totalSpace/1024) - (usedSpace/1024))+" G \n"
+                    +'<div class="progress">'
+                    +'<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
+                    +Math.round(100*(usedSpace/totalSpace)) +'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
+                    +'<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
+                    +Number(100-Math.round(100*(usedSpace/totalSpace))) +'%"><span class="sr-only">'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available</span>'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available </div>'
+                   
+                    
+                    +'</div>'; 
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
