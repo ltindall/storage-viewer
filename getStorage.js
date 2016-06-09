@@ -146,6 +146,9 @@ $(document).ready(function(){
                 
                 //var tempZfsPoolName = zfsName.substring(0,zfsName.indexOf(":")); 
 
+                if(zfsPoolName.length != 0){
+                  zfsListFormatted += "\n\n"; 
+                }
                 if(zfsName.indexOf("/") == -1){
                   zfsPoolName = zfsName;
                   newPoolFound = true;  
@@ -171,8 +174,9 @@ $(document).ready(function(){
                     zfsLineFormatted += ", "; 
                   }
                 }
+
                 if(newPoolFound){
-                  zfsListFormatted += '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'+100*(usedSpace/totalSpace) +'%"><span class="sr-only">'+100*(usedSpace/totalSpace)+'% Full</span></div></div>'+"used space: "+usedSpace/1024+" G  total space: "+totalSpace/1024+" G\n"; 
+                  zfsListFormatted += "Summary for "+zfsPoolName+"-- Used Space: "+usedSpace/1024+" G  Total Space: "+totalSpace/1024+" G  Available Space: "+Number((totalSpace/1024) - (usedSpace/1024))+" G \n"+'<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'+100*(usedSpace/totalSpace) +'%"><span class="sr-only">'+100*(usedSpace/totalSpace)+'% Full</span>'+100*(usedSpace/totalSpace)+'% Full </div></div>'; 
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
