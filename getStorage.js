@@ -117,13 +117,14 @@ $(document).ready(function(){
 
               // TODO: need to find total space from each pool not just the first
               // one 
+              /*
               var availableSpace =  zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
               var usedSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[0];
               var totalSpace = Number(usedSpace) + Number(availableSpace);  
               console.log("available = "+availableSpace); 
               console.log("usedSpace = ",usedSpace); 
               console.log("totalSpace ="+totalSpace); 
-
+              */
               /*
                 TODO: 
                 Grep the zfs report for filesystems without a slash in the name. These will be the different datapools. 
@@ -133,11 +134,30 @@ $(document).ready(function(){
 
               // Take the sorted zfs lines and convert them into a big string to
               // display in html 
-              zfsListFormatted = ""; 
+              var zfsListFormatted = ""; 
+              var zfsPoolName = ""
+              var newPoolFound = false; 
+              var availableSpace = 0; 
+              var usedSpace = 0; 
+              var totalSpace = 0; 
               for(var i = 0; i < zfsListReport.length; ++i) {
                 // parse zfs file system name from zfs report line 
                 var zfsName = zfsListReport[i].substring(0,zfsListReport[i].indexOf(":")); 
                 
+                //var tempZfsPoolName = zfsName.substring(0,zfsName.indexOf(":")); 
+
+                if(zfsName.indexOf("/") == -1){
+                  zfsPoolName = zfsName;
+                  newPoolFound = true;  
+                  availableSpace = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(',')[1];
+                  usedSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[0];
+                  totalSpace = Number(usedSpace) + Number(availableSpace);  
+
+                }
+                else{
+                  newPoolFound = false; 
+                } 
+
                 // parse the rest of the line into an array 
                 var zfsLine = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(','); 
                 
@@ -150,6 +170,9 @@ $(document).ready(function(){
                   if(j != zfsLine.length-1){
                     zfsLineFormatted += ", "; 
                   }
+                }
+                if(newPoolFound){
+                  zfsListFormatted += '<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'+100*(usedSpace/totalSpace) +'%"><span class="sr-only">'+100*(usedSpace/totalSpace)+'% Full</span></div></div>'+ '<pre>'+"used space: "+usedSpace/1024+" G  total space: "+totalSpace/1024+" G\n"; 
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
@@ -165,8 +188,10 @@ $(document).ready(function(){
                 + group.facts.ipaddress + '</td><td>'
                 + group.facts.productname + '</td><td>'
                 + group.facts.serialnumber + '</td><td>'
+                + zfsListFormatted + '</pre></td>'
+                /*
                 +'<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'+100*(usedSpace/totalSpace) +'%"><span class="sr-only">45% Complete</span></div></div>'+ '<pre>'+"used space: "+usedSpace/1024+" G  total space: "+totalSpace/1024+" G\n"+zfsListFormatted + '</pre></td>'
-                 
+                 */
                 +'</tr>';
             } 
           }).join()
