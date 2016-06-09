@@ -7,22 +7,23 @@ return 0;
 $(document).ready(function(){
 
   var restService = 'https://rowlf.crbs.ucsd.edu:1994/api/'; 
-  // get list of all storage nodes
+
+  // GET LIST OF ALL STORAGE NODES
+  // use facts-environment = solaris since it will take the environment from 
+  // the last received fact set, this should fix problems that occur when old
+  // nodes have been left behind
   var storageServers = []
   $.ajax(
   {
     async: false,  
     type: "GET",
-    url: restService + 'facts/operatingsystem/Solaris',
+    url: restService + encodeURI('query=["=", "facts-environment", "solaris"]'),     
     contentType: "application/json; charset=utf-8",
     dataType: "json",
     success: function (storageServersJson) {
 	     
-      var i ;  
-      for (i = 0; i <storageServersJson.length; i++){
-
+      for (var i = 0; i <storageServersJson.length; i++){
         storageServers.push(storageServersJson[i].certname); 
-
       }
                                             
     },
@@ -31,16 +32,19 @@ $(document).ready(function(){
                                         }
   });
 
-
-
-
+  // if storage servers found 
   if(storageServers.length > 0){
 
+    // prepare big query for querying the Factsets endpoint 
+    // this will create a big or clause with all of the storage server
+    // certnames 
     var query = 'query=["or",'; 
     query += $.map(storageServers, function(serverName, index){
         return '["=", "certname", "'+serverName+'"]'; 
       }).join() + ']'; 
-    console.log(query); 
+    
+    //console.log(query); 
+    
     var encodedQuery = encodeURI(query); 
     $.ajax(
     {
@@ -51,56 +55,85 @@ $(document).ready(function(){
       dataType: "json",
       success: function (storageData) {
       
+        // if Factsets query returned successful 
         $('#storage').append('<tbody>'); 
         $('#storage').append(
+
+          // for each storage node in the returned set 
           $.map(storageData, function(group, index){
+            // json keys for this node 
             var factKeys = Object.keys(group.facts); 
             //console.log(factKeys); 
-            var zfsList = []; 
-            var zfsListPretty = []; 
+            
+            // zfs file systems array with zfs_space at the front (keeps track
+            // of the keys) 
+            //var zfsList = [];
+
+            // zfs file systems array (pretty version without zfs_space in
+            // front) 
+            //var zfsListPretty = []; 
+
+            // array to contain the entire line for each zfs file system
             var zfsListReport = [];
-            var poolValues = [];   
+
+
+            //var poolValues = [];   
+
+
             for( var i = 0; i < factKeys.length; ++i){
-              if(factKeys[i].substring(0,9) == "zfs_space"){
-                zfsList.push(factKeys[i]);
-                zfsListPretty.push(factKeys[i].substring(10)); 
-                //TODO: insert logic here to format size (gb, mb, kb) before adding to string 
+              // if the json key contains "zfs_space"
+              if(factKeys[i].indexOf("zfs_space") != -1){
 
+                // push to zfs file system array 
+                //zfsList.push(factKeys[i]);
+                
                 var searchString = "zfs_space_"; 
-                var poolName = factKeys[i].substring(factKeys[i].indexOf(searchString)+searchString.length); 
-                zfsListReport.push(poolName+": "+group.facts[factKeys[i]]+"\n"); 
+                var zfsName = factKeys[i].substring(factKeys[i].indexOf(searchString)+searchString.length); 
+                // push to zfs file system pretty array 
+                //zfsListPretty.push(zfsName); 
 
-                poolValues.push(poolName+","+group.facts[factKeys[i]].split(',')); 
+                // push entire line to zfs report array 
+                zfsListReport.push(zfsName+": "+group.facts[factKeys[i]]+"\n"); 
+
+                //poolValues.push(zfsName+","+group.facts[factKeys[i]].split(',')); 
               }
 	          }
+
+
             //console.log("rpool"<"rpool/root"); 
-            poolValues.sort(Comparator); 
-            poolValues.reverse(); 
-	    //console.log(poolValues[0]); 
+            //poolValues.sort(Comparator); 
+            //poolValues.reverse(); 
+	          //console.log(poolValues[0]); 
             //console.log("pool values : "+poolValues);
 
  
+            // sort the zfs report 
             zfsListReport.sort();
-            zfsListReport.reverse(); 
+
+            // revserse the order 
+            zfsListReport.reverse();
+
+            // TODO: need to find total space from each pool not just the first
+            // one  
             var totalSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
             var usedSpace = 0;  
             console.log("totalSpace ="+totalSpace); 
-	/*
-            for( var i = 0; i < zfsListReport.length; ++i){
-              
-            }
-	*/
 
-	    /*
+      	    /*
               TODO: 
               Grep the zfs report for filesystems without a slash in the name. These will be the different datapools. 
               The used + available from that first line should sum to the total for that datapool. There shouldn't be 
               a need to go through and sum all the used values since its a tree. 
             */ 
 
+            // Take the sorted zfs lines and convert them into a big string to
+            // display in html 
             zfsListFormatted = ""; 
             for(var i = 0; i < zfsListReport.length; ++i) {
+              // parse zfs file system name from zfs report line 
               var zfsName = zfsListReport[i].substring(0,zfsListReport[i].indexOf(":")); 
+              
+              // parse the rest of the line into an array 
               var zfsLine = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(','); 
               usedSpace += Number(zfsLine[0]);
               var zfsLineFormatted = "";  
@@ -113,7 +146,7 @@ $(document).ready(function(){
               zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
             } 
             console.log("used space = "+usedSpace); 
-	    //console.log("zfslistformatted "+ zfsListFormatted);
+	          //console.log("zfslistformatted "+ zfsListFormatted);
             //console.log("zfslistreport "+zfsListReport);
 		  
 	    return '<tr><td>' + group.facts.fqdn + '</td><td>'
