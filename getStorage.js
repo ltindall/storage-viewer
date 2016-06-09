@@ -17,7 +17,7 @@ $(document).ready(function(){
   {
     async: false,  
     type: "GET",
-    url: restService "nodes?"+ encodeURI('query=["=", "facts-environment", "solaris"]'),     
+    url: restService + "nodes?"+ encodeURI('query=["=", "facts-environment", "solaris"]'),     
     contentType: "application/json; charset=utf-8",
     dataType: "json",
     success: function (storageServersJson) {
@@ -106,60 +106,63 @@ $(document).ready(function(){
 	          //console.log(poolValues[0]); 
             //console.log("pool values : "+poolValues);
 
- 
-            // sort the zfs report 
-            zfsListReport.sort();
+            // if the zfs report is not empty 
+            if(zfsListReport.length > 0){
+   
+              // sort the zfs report 
+              zfsListReport.sort();
 
-            // revserse the order 
-            zfsListReport.reverse();
+              // revserse the order 
+              zfsListReport.reverse();
 
-            // TODO: need to find total space from each pool not just the first
-            // one  
-            var totalSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
-            var usedSpace = 0;  
-            console.log("totalSpace ="+totalSpace); 
+              // TODO: need to find total space from each pool not just the first
+              // one  
+              var totalSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
+              var usedSpace = 0;  
+              console.log("totalSpace ="+totalSpace); 
 
-      	    /*
-              TODO: 
-              Grep the zfs report for filesystems without a slash in the name. These will be the different datapools. 
-              The used + available from that first line should sum to the total for that datapool. There shouldn't be 
-              a need to go through and sum all the used values since its a tree. 
-            */ 
+              /*
+                TODO: 
+                Grep the zfs report for filesystems without a slash in the name. These will be the different datapools. 
+                The used + available from that first line should sum to the total for that datapool. There shouldn't be 
+                a need to go through and sum all the used values since its a tree. 
+              */ 
 
-            // Take the sorted zfs lines and convert them into a big string to
-            // display in html 
-            zfsListFormatted = ""; 
-            for(var i = 0; i < zfsListReport.length; ++i) {
-              // parse zfs file system name from zfs report line 
-              var zfsName = zfsListReport[i].substring(0,zfsListReport[i].indexOf(":")); 
-              
-              // parse the rest of the line into an array 
-              var zfsLine = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(','); 
-              usedSpace += Number(zfsLine[0]);
-              var zfsLineFormatted = "";  
-              for(var j = 0; j < zfsLine.length; ++j){
-                zfsLineFormatted += zfsLine[j]/1000 + " G"; 
-                if(j != zfsLine.length-1){
-                  zfsLineFormatted += ", "; 
+              // Take the sorted zfs lines and convert them into a big string to
+              // display in html 
+              zfsListFormatted = ""; 
+              for(var i = 0; i < zfsListReport.length; ++i) {
+                // parse zfs file system name from zfs report line 
+                var zfsName = zfsListReport[i].substring(0,zfsListReport[i].indexOf(":")); 
+                
+                // parse the rest of the line into an array 
+                var zfsLine = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(','); 
+                usedSpace += Number(zfsLine[0]);
+                var zfsLineFormatted = "";  
+                for(var j = 0; j < zfsLine.length; ++j){
+                  zfsLineFormatted += zfsLine[j]/1000 + " G"; 
+                  if(j != zfsLine.length-1){
+                    zfsLineFormatted += ", "; 
+                  }
                 }
-              }
-              zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
+                zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
+              } 
+              console.log("used space = "+usedSpace); 
+              //console.log("zfslistformatted "+ zfsListFormatted);
+              //console.log("zfslistreport "+zfsListReport);
+        
+              return '<tr><td>' + group.facts.fqdn + '</td><td>'
+                + group.facts.operatingsystem + '</td><td>'
+                + group.facts.operatingsystemrelease + '</td><td>'
+                + group.facts.kernelversion + '</td><td>'
+                + group.facts.last_run + '</td><td>'
+                + group.facts.ipaddress + '</td><td>'
+                + group.facts.productname + '</td><td>'
+                + group.facts.serialnumber + '</td><td>'
+                +'<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'+100*(usedSpace/totalSpace) +'%"><span class="sr-only">45% Complete</span></div></div>'+ '<pre>'+"used space: "+usedSpace/1000+" G  total space: "+totalSpace/1000+" G\n"+zfsListFormatted + '</pre></td>'
+                 
+                +'</tr>';
             } 
-            console.log("used space = "+usedSpace); 
-	          //console.log("zfslistformatted "+ zfsListFormatted);
-            //console.log("zfslistreport "+zfsListReport);
-		  
-	    return '<tr><td>' + group.facts.fqdn + '</td><td>'
-              + group.facts.operatingsystem + '</td><td>'
-              + group.facts.operatingsystemrelease + '</td><td>'
-              + group.facts.kernelversion + '</td><td>'
-              + group.facts.last_run + '</td><td>'
-              + group.facts.ipaddress + '</td><td>'
-              + group.facts.productname + '</td><td>'
-              + group.facts.serialnumber + '</td><td>'
-              +'<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'+100*(usedSpace/totalSpace) +'%"><span class="sr-only">45% Complete</span></div></div>'+ '<pre>'+"used space: "+usedSpace/1000+" G  total space: "+totalSpace/1000+" G\n"+zfsListFormatted + '</pre></td>'
-               
-              +'</tr>'; 
           }).join()
         ); 
         /*
