@@ -61,6 +61,7 @@ $(document).ready(function(){
 
           // for each storage node in the returned set 
           $.map(storageData, function(group, index){
+	    console.log(group); 
             // json keys for this node 
             var factKeys = Object.keys(group.facts); 
             //console.log(factKeys); 
