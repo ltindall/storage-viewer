@@ -116,9 +116,10 @@ $(document).ready(function(){
               zfsListReport.reverse();
 
               // TODO: need to find total space from each pool not just the first
-              // one  
-              var totalSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
-              var usedSpace = 0;  
+              // one 
+              var availableSpace =  zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
+              var usedSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[0];
+              var totalSpace = usedSpace + availableSpace;  
               console.log("totalSpace ="+totalSpace); 
 
               /*
@@ -137,7 +138,9 @@ $(document).ready(function(){
                 
                 // parse the rest of the line into an array 
                 var zfsLine = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(','); 
-                usedSpace += Number(zfsLine[0]);
+                
+                //usedSpace += Number(zfsLine[0]);
+
                 var zfsLineFormatted = "";  
                 for(var j = 0; j < zfsLine.length; ++j){
                   zfsLineFormatted += zfsLine[j]/1000 + " G"; 
