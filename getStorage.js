@@ -17,7 +17,7 @@ $(document).ready(function(){
   {
     async: false,  
     type: "GET",
-    url: restService + encodeURI('query=["=", "facts-environment", "solaris"]'),     
+    url: restService "nodes?"+ encodeURI('query=["=", "facts-environment", "solaris"]'),     
     contentType: "application/json; charset=utf-8",
     dataType: "json",
     success: function (storageServersJson) {
@@ -97,7 +97,7 @@ $(document).ready(function(){
 
                 //poolValues.push(zfsName+","+group.facts[factKeys[i]].split(',')); 
               }
-	          }
+            }
 
 
             //console.log("rpool"<"rpool/root"); 
