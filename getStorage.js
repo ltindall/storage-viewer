@@ -60,7 +60,7 @@ $(document).ready(function(){
             var zfsListPretty = []; 
             var zfsListReport = [];
             var poolValues = [];   
-	          for( var i = 0; i < factKeys.length; ++i){
+            for( var i = 0; i < factKeys.length; ++i){
               if(factKeys[i].substring(0,9) == "zfs_space"){
                 zfsList.push(factKeys[i]);
                 zfsListPretty.push(factKeys[i].substring(10)); 
