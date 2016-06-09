@@ -119,7 +119,7 @@ $(document).ready(function(){
               // one 
               var availableSpace =  zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[1];
               var usedSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[0];
-              var totalSpace = usedSpace + availableSpace;  
+              var totalSpace = Number(usedSpace) + Number(availableSpace);  
               console.log("available = "+availableSpace); 
               console.log("usedSpace = ",usedSpace); 
               console.log("totalSpace ="+totalSpace); 
@@ -145,7 +145,8 @@ $(document).ready(function(){
 
                 var zfsLineFormatted = "";  
                 for(var j = 0; j < zfsLine.length; ++j){
-                  zfsLineFormatted += Math.round(zfsLine[j]/1024 * 10)/10 + " G"; 
+                  zfsLineFormatted += Math.round(zfsLine[j]/1024 * 100)/100 + " G"; 
+                  //zfsLineFormatted += zfsLine[j]/1024 + " G"; 
                   if(j != zfsLine.length-1){
                     zfsLineFormatted += ", "; 
                   }
