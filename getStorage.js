@@ -179,17 +179,19 @@ $(document).ready(function(){
 
                 if(newPoolFound){
                   zfsListFormatted += "Summary for "+zfsPoolName
-                    +"-- Used Space: "+Math.round(10*usedSpace/1024))/10; 
-                    +" G  Total Space: "+totalSpace/1024
-                    +" G  Available Space: "+Number((totalSpace/1024) - (usedSpace/1024))+" G \n"
+                    +" -- Used Space: "+Math.round(100*usedSpace/1024)/100 
+                    +" G  Total Space: "+Math.round(100*totalSpace/1024)/100
+                    +" G  Available Space: "
+                    +Math.round(100*((totalSpace/1024) -(usedSpace/1024)))/100+" G \n"
                     +'<div class="progress">'
-                    +'<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
+                    +'<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
                     +Math.round(100*(usedSpace/totalSpace)) +'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
                     +'<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
                     +Number(100-Math.round(100*(usedSpace/totalSpace))) +'%"><span class="sr-only">'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available</span>'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available </div>'
                    
                     
-                    +'</div>'; 
+                    +'</div>'
+                    +'NAME | USED | AVAILABLE | RESERVATION | QUOTA \n'; 
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
