@@ -9,11 +9,13 @@ $(document).ready(function(){
   var startTime = Date.now(); 
   var restService = 'https://rowlf.crbs.ucsd.edu:1994/api/'; 
 
+  /*
   // GET LIST OF ALL STORAGE NODES
   // use facts-environment = solaris since it will take the environment from 
   // the last received fact set, this should fix problems that occur when old
   // nodes have been left behind
   var storageServers = []
+  startFirstQuery = Date.now(); 
   $.ajax(
   {
     async: false,  
@@ -22,7 +24,7 @@ $(document).ready(function(){
     contentType: "application/json; charset=utf-8",
     dataType: "json",
     success: function (storageServersJson) {
-	     
+      endFirstQuery = Date.now(); 
       for (var i = 0; i <storageServersJson.length; i++){
         storageServers.push(storageServersJson[i].certname); 
       }
@@ -32,7 +34,9 @@ $(document).ready(function(){
       alert(msg.responseText);
                                         }
   });
+  */
 
+  /*
   // if storage servers found 
   if(storageServers.length > 0){
 
@@ -45,21 +49,27 @@ $(document).ready(function(){
       }).join() + ']'; 
     
     //console.log(query); 
-    
-    var encodedQuery = encodeURI(query); 
+  */
+    //var encodedQuery = encodeURI(query); 
+    var encodedQuery = encodeURI('query=["=", "environment", "solaris"]'); 
+    startSecondQuery = Date.now(); 
     $.ajax(
     {
       async: false, 
       type: "GET",
+      //url: restService + 'environments/solaris/facts',
+      //url: restService + 'factsets/environment/solaris', 
       url: restService + 'factsets?'+encodedQuery,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       success: function (storageData) {
-      
+     
+	  console.log(storageData); 
+	endSecondQuery = Date.now(); 
+        startProcessing = Date.now();  
         // if Factsets query returned successful 
         $('#storage').append('<tbody>'); 
         $('#storage').append(
-
           // for each storage node in the returned set 
           $.map(storageData, function(group, index){
 	    console.log(group); 
@@ -225,6 +235,7 @@ $(document).ready(function(){
           $.map(data      
         */
         $('#storage').append('</tbody>'); 
+	endProcessing = Date.now(); 
                                               
       },
       error: function (msg) {
@@ -232,7 +243,14 @@ $(document).ready(function(){
                                           }
     });
 
+  /*
   }
+  */
 
-  document.getElementById("pageLoadTime").innerHTML = "Time to load page: ",Date.now() - startTime; 
+  document.getElementById("pageLoadTime").innerHTML = "<pre>Time to load page: "+(Date.now() - startTime)/1000 + " sec \n"
+  //  +"Time to finish first query: "+(endFirstQuery - startFirstQuery)/1000 + " sec \n"
+    +"Time to finish first query: "+(endSecondQuery - startSecondQuery)/1000 + " sec \n"
+    +"Time to process data: "+(endProcessing-startProcessing)/1000 + " sec \n"
+    +"</pre>"; 
+
 }); 
