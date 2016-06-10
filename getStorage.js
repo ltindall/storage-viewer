@@ -6,6 +6,7 @@ return 0;
 }
 $(document).ready(function(){
 
+  var startTime = Date.now(); 
   var restService = 'https://rowlf.crbs.ucsd.edu:1994/api/'; 
 
   // GET LIST OF ALL STORAGE NODES
@@ -178,7 +179,7 @@ $(document).ready(function(){
 
                 if(newPoolFound){
                   zfsListFormatted += "Summary for "+zfsPoolName
-                    +"-- Used Space: "+usedSpace/1024
+                    +"-- Used Space: "+Math.round(10*usedSpace/1024))/10; 
                     +" G  Total Space: "+totalSpace/1024
                     +" G  Available Space: "+Number((totalSpace/1024) - (usedSpace/1024))+" G \n"
                     +'<div class="progress">'
@@ -231,23 +232,5 @@ $(document).ready(function(){
 
   }
 
-  /*
-	$.getJSON("https://rowlf.crbs.ucsd.edu:1994/api/facts/operatingsystem/Solaris",function(storageServersJson){
-		console.log(storageServersJson);
-	});  
-
-	var storageServers = []; 
-	for (i = 0; i <storageServersJson.length; i++){
-		storageServers.push(storageServersJson[i].certname); 
-	}
-
-	$('#fetch').html('<h2> Servers with operatingsystem = Solaris</h2>'+storageServers.toString()); 
-  */
-
-	/*
-	$.getJSON("https://rowlf.crbs.ucsd.edu:1994/api/nodes/apocalypse.crbs.ucsd.edu/facts/", function(json) {
-   		console.log(json);
-    	$('#fetch').html('<h2>Facts for apocalypse</h2>' + JSON.stringify(json, null, 2) );
- 	});
- 	*/
+  document.getElementById("pageLoadTime").innerHTML = "Time to load page: ",Date.now() - startTime; 
 }); 
