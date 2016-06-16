@@ -202,7 +202,7 @@ $(document).ready(function(){
                    
                     
                     +'</div>'
-                    +'<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+zfsPoolName+'">'+zfsPoolName+' -- View More</button>'
+                    +'<button class="btn btn-primary storageCollapse" type="button" data-toggle="collapse" data-target="#collapse_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+zfsPoolName+'">'+zfsPoolName+' -- View More</button>'
                     +'<div class="collapse" id="collapse_'+zfsPoolName+'"><br><div class="well">' 
                     +'NAME | USED | AVAILABLE | RESERVATION | QUOTA \n'; 
                 }
@@ -256,5 +256,11 @@ $(document).ready(function(){
     +"Time to finish first query: "+(endSecondQuery - startSecondQuery)/1000 + " sec \n"
     +"Time to process data: "+(endProcessing-startProcessing)/1000 + " sec \n"
     +"</pre>"; 
+
+  $('.storageCollapse').click(function(){
+    $(this.text(function(i,old){
+      alert(old); 
+    }); 
+  }); 
 
 }); 
