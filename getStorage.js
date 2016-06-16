@@ -195,9 +195,9 @@ $(document).ready(function(){
                     +" G  Available Space: "
                     +Math.round(100*((totalSpace/1024) -(usedSpace/1024)))/100+" G \n"
                     +'<div class="progress">'
-                    +'<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
+                    +'<div class="progress-bar progress-bar-danger progress-bar-striped " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
                     +Math.round(100*(usedSpace/totalSpace)) +'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
-                    +'<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
+                    +'<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
                     +Number(100-Math.round(100*(usedSpace/totalSpace))) +'%"><span class="sr-only">'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available</span>'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available </div>'
                    
                     
