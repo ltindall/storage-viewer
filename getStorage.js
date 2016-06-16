@@ -213,7 +213,7 @@ $(document).ready(function(){
               //console.log("zfslistformatted "+ zfsListFormatted);
               //console.log("zfslistreport "+zfsListReport);
         
-              return '<tr><td>' + group.facts.fqdn + '</td><td>'
+              return '<tr><td><a class="hostLink" href="">' + group.facts.fqdn + '</a></td><td>'
                 + group.facts.operatingsystem + '</td><td>'
                 + group.facts.operatingsystemrelease + '</td><td>'
                 + group.facts.kernelversion + '</td><td>'
@@ -267,5 +267,20 @@ $(document).ready(function(){
       } 
     }); 
   }); 
+
+  $('.viewAll').click(function(){
+    document.getElementById("storage").style.visibility = "visible"; 
+    document.getElementById("individualHost").style.visibility = "hidden"; 
+    }); 
+  }); 
+
+  $('.hostLink').click(function(){
+    document.getElementById("storage").style.visibility = "collapse"; 
+    $(this).text(function(i,old){
+      document.getElementById("individualHost").innerHTML = '<a class="viewAll" href=""> View All </a>'; 
+      document.getElementById("individualHost").innerHTML += old; 
+    }); 
+  }); 
+
 
 }); 
