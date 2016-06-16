@@ -12,7 +12,7 @@ function loadIndividual(host){
   document.getElementById("storage").style.display = "none"; 
   
 
-  var indHost = "<table><tr><td>fact key</td><td>fact value</td></tr>"; 
+  var indHost = '<table class="table table-hover"><thead><tr><th>fact key</th><th>fact value</th></tr></thead><tbody>'; 
   var foundHost = false; 
   for( i = 0; i < storageGroups.length; ++i ){
     if(storageGroups[i].certname === host && foundHost == false){
@@ -23,7 +23,7 @@ function loadIndividual(host){
       for( j = 0; j < factKeys.length; ++j){
         indHost += "<tr><td>"+factKeys[j]+"</td><td>"+storageGroups[i].facts[factKeys[j]] + "</td></tr>"; 
       }
-      indHost += "</table>" ; 
+      indHost += "</tbody></table>" ; 
 
 
     }
