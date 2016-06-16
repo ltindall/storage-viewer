@@ -160,6 +160,7 @@ $(document).ready(function(){
 
                 if(zfsName.indexOf("/") == -1){
                   if(zfsPoolName.length != 0){
+                    zfsListFormatted += '</div>'; 
                     zfsListFormatted += "\n\n"; 
                   }
                   zfsPoolName = zfsName;
