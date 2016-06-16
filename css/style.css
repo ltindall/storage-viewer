@@ -5,3 +5,9 @@ body {
   margin-right: 35px;
   margin-left: 35px; 
 }
+#indHostTable{
+  table-layout: fixed; 
+} 
+#indHostTable td{
+  word-wrap: break-word; 
+} 
