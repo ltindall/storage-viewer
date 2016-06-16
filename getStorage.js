@@ -4,6 +4,14 @@ if (a[1] < b[1]) return -1;
 if (a[1] > b[1]) return 1;
 return 0;
 }
+
+function loadIndividual(host){ 
+
+    document.getElementById("storage").style.visibility = "collapse"; 
+      document.getElementById("individualHost").innerHTML = '<a class="viewAll" href=""> View All </a>'; 
+      document.getElementById("individualHost").innerHTML += host; 
+
+}    
 $(document).ready(function(){
 
   var startTime = Date.now(); 
@@ -213,7 +221,7 @@ $(document).ready(function(){
               //console.log("zfslistformatted "+ zfsListFormatted);
               //console.log("zfslistreport "+zfsListReport);
         
-              return '<tr><td><a class="hostLink" href="">' + group.facts.fqdn + '</a></td><td>'
+              return '<tr><td><a onclick="loadIndividual('+group.facts.fqdn')  href="">' + group.facts.fqdn + '</a></td><td>'
                 + group.facts.operatingsystem + '</td><td>'
                 + group.facts.operatingsystemrelease + '</td><td>'
                 + group.facts.kernelversion + '</td><td>'
@@ -274,6 +282,7 @@ $(document).ready(function(){
     }); 
   }); 
 
+/*
   $('.hostLink').click(function(){
     document.getElementById("storage").style.visibility = "collapse"; 
     $(this).text(function(i,old){
@@ -281,6 +290,6 @@ $(document).ready(function(){
       document.getElementById("individualHost").innerHTML += old; 
     }); 
   }); 
-
+*/
 
 }); 
