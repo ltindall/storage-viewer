@@ -203,7 +203,7 @@ $(document).ready(function(){
                     
                     +'</div>'
                     +'<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+zfsPoolName+'">View More</button>'
-                    +'<div class="collapse" id="collapse_'+zfsPoolName+'"> 
+                    +'<div class="collapse" id="collapse_'+zfsPoolName+'">' 
                     +'NAME | USED | AVAILABLE | RESERVATION | QUOTA \n'; 
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
