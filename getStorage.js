@@ -7,11 +7,18 @@ return 0;
 
 function loadIndividual(host){ 
 
-    document.getElementById("storage").style.visibility = "collapse"; 
-      document.getElementById("individualHost").innerHTML = '<a class="viewAll" href=""> View All </a>'; 
+  document.getElementById("individualHost").style.display = "initial"; 
+    document.getElementById("storage").style.display = "none"; 
+      document.getElementById("individualHost").innerHTML = '<a onclick="viewAll()" href="#"> View All </a>'; 
       document.getElementById("individualHost").innerHTML += host; 
-
+    
 }    
+function viewAll(){
+
+    document.getElementById("storage").style.display = "initial"; 
+    document.getElementById("individualHost").style.display = "none"; 
+}
+
 $(document).ready(function(){
 
   var startTime = Date.now(); 
@@ -221,7 +228,7 @@ $(document).ready(function(){
               //console.log("zfslistformatted "+ zfsListFormatted);
               //console.log("zfslistreport "+zfsListReport);
         
-              return '<tr><td><a onclick="loadIndividual('+group.facts.fqdn')  href="">' + group.facts.fqdn + '</a></td><td>'
+              return '<tr><td><a onclick="loadIndividual(\''+group.facts.fqdn+'\')"  href="#">' + group.facts.fqdn + '</a></td><td>'
                 + group.facts.operatingsystem + '</td><td>'
                 + group.facts.operatingsystemrelease + '</td><td>'
                 + group.facts.kernelversion + '</td><td>'
@@ -277,9 +284,9 @@ $(document).ready(function(){
   }); 
 
   $('.viewAll').click(function(){
-    document.getElementById("storage").style.visibility = "visible"; 
-    document.getElementById("individualHost").style.visibility = "hidden"; 
-    }); 
+    document.getElementById("storage").style.display = "initial"; 
+    document.getElementById("individualHost").style.display = "none"; 
+
   }); 
 
 /*
