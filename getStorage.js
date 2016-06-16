@@ -17,9 +17,11 @@ function loadIndividual(host){
   for( i = 0; i < storageGroups.length; ++i ){
     if(storageGroups[i].certname === host && foundHost == false){
       foundHost = true;   
-      var factKeys = Object.keys(storageGroups[i].facts); 
+      var factKeys = Object.keys(storageGroups[i].facts);
+      console.log(factKeys);  
+      console.log(factKeys[0]); 
       for( j = 0; j < factKeys.length; ++j){
-        indHost += "<tr><td>"+factKeys[j]+"</td><td>"+storageGroups[i].facts.factKeys[j] + "</td></tr>"; 
+        indHost += "<tr><td>"+factKeys[j]+"</td><td>"+storageGroups[i].facts[factKeys[j]] + "</td></tr>"; 
       }
       indHost += "</table>" ; 
 
