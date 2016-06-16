@@ -12,12 +12,13 @@ function loadIndividual(host){
   document.getElementById("storage").style.display = "none"; 
   
 
-  var indHost = '<table class="table table-hover" id="indHostTable><thead><tr><th>fact key</th><th>fact value</th></tr></thead><tbody>'; 
+  var indHost = '<table class="table table-hover" id="indHostTable"><thead><tr><th>fact key</th><th>fact value</th></tr></thead><tbody>'; 
   var foundHost = false; 
   for( i = 0; i < storageGroups.length; ++i ){
     if(storageGroups[i].certname === host && foundHost == false){
       foundHost = true;   
       var factKeys = Object.keys(storageGroups[i].facts);
+      factKeys.sort(); 
       console.log(factKeys);  
       console.log(factKeys[0]); 
       for( j = 0; j < factKeys.length; ++j){
