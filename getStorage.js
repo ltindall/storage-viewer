@@ -30,7 +30,7 @@ function loadIndividual(host){
     }
   }
 
-  document.getElementById("individualHost").innerHTML = '<a onclick="viewAll()" href="#"> View All </a>'; 
+  document.getElementById("individualHost").innerHTML = '<button class="btn btn-primary" type="button" onclick="viewAll()" href="#"> View All </button>'; 
   document.getElementById("individualHost").innerHTML += indHost; 
   console.log(storageGroups);     
 }    
