@@ -12,7 +12,7 @@ function loadIndividual(host){
   document.getElementById("storage").style.display = "none"; 
   
 
-  var indHost = '<table class="table table-hover" id="indHostTable"><thead><tr><th>fact key</th><th>fact value</th></tr></thead><tbody>'; 
+  var indHost = '<table class="table table-hover" id="indHostTable"><thead><tr><th>Fact</th><th>Value</th></tr></thead><tbody>'; 
   var foundHost = false; 
   for( i = 0; i < storageGroups.length; ++i ){
     if(storageGroups[i].certname === host && foundHost == false){
@@ -30,7 +30,8 @@ function loadIndividual(host){
     }
   }
 
-  document.getElementById("individualHost").innerHTML = '<button class="btn btn-primary" type="button" onclick="viewAll()" href="#"> View All </button>'; 
+  document.getElementById("individualHost").innerHTML = '<h1>'+host+'</h1>'; 
+  document.getElementById("individualHost").innerHTML += '<button class="btn btn-primary" type="button" onclick="viewAll()" href="#"> View All </button>'; 
   document.getElementById("individualHost").innerHTML += indHost; 
   console.log(storageGroups);     
 }    
