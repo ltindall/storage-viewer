@@ -160,7 +160,7 @@ $(document).ready(function(){
 
                 if(zfsName.indexOf("/") == -1){
                   if(zfsPoolName.length != 0){
-                    zfsListFormatted += '</div>'; 
+                    zfsListFormatted += '</div></div>'; 
                     zfsListFormatted += "\n\n"; 
                   }
                   zfsPoolName = zfsName;
@@ -202,8 +202,8 @@ $(document).ready(function(){
                    
                     
                     +'</div>'
-                    +'<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+zfsPoolName+'">View More</button>'
-                    +'<div class="collapse" id="collapse_'+zfsPoolName+'">' 
+                    +'<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+zfsPoolName+'">'+zfsPoolName+' -- View More</button>'
+                    +'<div class="collapse" id="collapse_'+zfsPoolName+'"><br><div class="well">' 
                     +'NAME | USED | AVAILABLE | RESERVATION | QUOTA \n'; 
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
