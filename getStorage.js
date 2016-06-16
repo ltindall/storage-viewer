@@ -208,7 +208,7 @@ $(document).ready(function(){
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
-              zfsListFormatted += '</div>'; 
+              
               //console.log("used space = "+usedSpace); 
               //console.log("zfslistformatted "+ zfsListFormatted);
               //console.log("zfslistreport "+zfsListReport);
