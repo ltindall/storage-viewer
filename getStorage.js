@@ -261,6 +261,7 @@ $(document).ready(function(){
     $(this).text(function(i,old){
       if(old.indexOf("More") != -1){
         return old.substring(0,old.indexOf("More")) + " Less"; 
+      }
       else{
         return old.substring(0,old.indexOf("Less")) + " More"; 
       } 
