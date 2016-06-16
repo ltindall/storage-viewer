@@ -5,19 +5,22 @@ if (a[1] > b[1]) return 1;
 return 0;
 }
 
+var storageGroups = []; 
 function loadIndividual(host){ 
 
   document.getElementById("individualHost").style.display = "initial"; 
-    document.getElementById("storage").style.display = "none"; 
-      document.getElementById("individualHost").innerHTML = '<a onclick="viewAll()" href="#"> View All </a>'; 
-      document.getElementById("individualHost").innerHTML += host; 
-    
+  document.getElementById("storage").style.display = "none"; 
+  document.getElementById("individualHost").innerHTML = '<a onclick="viewAll()" href="#"> View All </a>'; 
+  document.getElementById("individualHost").innerHTML += host; 
+  console.log(storageGroups);     
 }    
+
 function viewAll(){
 
-    document.getElementById("storage").style.display = "initial"; 
-    document.getElementById("individualHost").style.display = "none"; 
+  document.getElementById("storage").style.display = "initial"; 
+  document.getElementById("individualHost").style.display = "none"; 
 }
+
 
 $(document).ready(function(){
 
@@ -79,15 +82,16 @@ $(document).ready(function(){
       dataType: "json",
       success: function (storageData) {
      
-	  console.log(storageData); 
-	endSecondQuery = Date.now(); 
+	    console.log(storageData); 
+	    endSecondQuery = Date.now(); 
         startProcessing = Date.now();  
         // if Factsets query returned successful 
         $('#storage').append('<tbody>'); 
         $('#storage').append(
           // for each storage node in the returned set 
           $.map(storageData, function(group, index){
-	    console.log(group); 
+            storageGroups.push(group); 
+	          console.log(group); 
             // json keys for this node 
             var factKeys = Object.keys(group.facts); 
             //console.log(factKeys); 
@@ -283,20 +287,5 @@ $(document).ready(function(){
     }); 
   }); 
 
-  $('.viewAll').click(function(){
-    document.getElementById("storage").style.display = "initial"; 
-    document.getElementById("individualHost").style.display = "none"; 
-
-  }); 
-
-/*
-  $('.hostLink').click(function(){
-    document.getElementById("storage").style.visibility = "collapse"; 
-    $(this).text(function(i,old){
-      document.getElementById("individualHost").innerHTML = '<a class="viewAll" href=""> View All </a>'; 
-      document.getElementById("individualHost").innerHTML += old; 
-    }); 
-  }); 
-*/
 
 }); 
