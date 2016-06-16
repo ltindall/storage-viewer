@@ -10,8 +10,25 @@ function loadIndividual(host){
 
   document.getElementById("individualHost").style.display = "initial"; 
   document.getElementById("storage").style.display = "none"; 
+  
+
+  var indHost = "<table><tr><td>fact key</td><td>fact value</td></tr>"; 
+  var foundHost = false; 
+  for( i = 0; i < storageGroups.length; ++i ){
+    if(storageGroups[i].certname === host && foundHost == false){
+      foundHost = true;   
+      var factKeys = Object.keys(storageGroups[i].facts); 
+      for( j = 0; j < factKeys.length; ++j){
+        indHost += "<tr><td>"+factKeys[j]+"</td><td>"+storageGroups[i].facts.factKeys[j] + "</td></tr>"; 
+      }
+      indHost += "</table>" ; 
+
+
+    }
+  }
+
   document.getElementById("individualHost").innerHTML = '<a onclick="viewAll()" href="#"> View All </a>'; 
-  document.getElementById("individualHost").innerHTML += host; 
+  document.getElementById("individualHost").innerHTML += indHost; 
   console.log(storageGroups);     
 }    
 
