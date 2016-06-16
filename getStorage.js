@@ -202,8 +202,8 @@ $(document).ready(function(){
                    
                     
                     +'</div>'
-                    +'<button class="btn btn-primary storageCollapse" type="button" data-toggle="collapse" data-target="#collapse_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+zfsPoolName+'">'+zfsPoolName+' -- View More</button>'
-                    +'<div class="collapse" id="collapse_'+zfsPoolName+'"><br><div class="well">' 
+                    +'<button class="btn btn-primary storageCollapse" type="button" data-toggle="collapse" data-target="#collapse_'+group.facts.fqdn+'_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+group.facts.fqdn+'_'+zfsPoolName+'">'+zfsPoolName+' -- View More</button>'
+                    +'<div class="collapse" id="collapse_'+group.facts.fqdn+'_'+zfsPoolName+'"><br><div class="well">' 
                     +'NAME | USED | AVAILABLE | RESERVATION | QUOTA \n'; 
                 }
                 zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
