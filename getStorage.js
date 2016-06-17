@@ -235,7 +235,7 @@ $(document).ready(function(){
                   var maxSpaceMB = 200 * 1024 * 1024; 
 
                   var progressBarWidth = 100*(totalSpace/maxSpaceMB); 
-                  var usedSpaceBar = usedSpace/maxSpaceMB; 
+                  var usedSpaceBar = 100*(usedSpace/maxSpaceMB); 
                   console.log("used space bar " + usedSpaceBar); 
                   var availableSpaceBar = 100*(totalSpace - usedSpace)/maxSpaceMB; 
                   console.log("available space bar " + availableSpaceBar); 
