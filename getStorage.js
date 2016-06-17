@@ -235,12 +235,14 @@ $(document).ready(function(){
                   var maxSpaceMB = 200 * 1024 * 1024; 
 
                   var progressBarWidth = 100*(totalSpace/maxSpaceMB); 
+                  /*
                   var usedSpaceBar = 100*(usedSpace/maxSpaceMB); 
                   console.log("used space bar " + usedSpaceBar); 
                   var availableSpaceBar = 100*(totalSpace - usedSpace)/maxSpaceMB; 
                   console.log("available space bar " + availableSpaceBar); 
 
                   console.log("check if equal "+(100-Math.round(100*(usedSpace/totalSpace))) + " = "+ (Math.round(100*(totalSpace - usedSpace)/totalSpace))); 
+                  */
                   zfsListFormatted += "Summary for "+zfsPoolName
                     +" -- Used Space: "+Math.round(100*usedSpace/1024)/100 
                     +" G  Total Space: "+Math.round(100*totalSpace/1024)/100
@@ -248,9 +250,9 @@ $(document).ready(function(){
                     +Math.round(100*((totalSpace/1024) -(usedSpace/1024)))/100+" G \n"
                     +'<div class="progress" style="width:'+progressBarWidth+'%">'
                     +'<div class="progress-bar progress-bar-danger progress-bar-striped " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
-                    +Math.round(usedSpaceBar) +'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
+                    +Math.round(100*(usedSpace/totalSpace))+ +'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
                     +'<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
-                    +Math.round(availableSpaceBar)+'%"><span class="sr-only">'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available</span>'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available </div>'
+                    +Number(100-Math.round(100*(usedSpace/totalSpace)))++'%"><span class="sr-only">'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available</span>'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available </div>'
                    
                     
                     +'</div>'
