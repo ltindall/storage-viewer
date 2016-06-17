@@ -206,7 +206,7 @@ $(document).ready(function(){
                   zfsPoolName = zfsName;
                   newPoolFound = true;  
                   availableSpace = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(',')[1];
-                  usedSpace = zfsListReport[0].substring(zfsListReport[0].indexOf(":")+2).split(',')[0];
+                  usedSpace = zfsListReport[i].substring(zfsListReport[i].indexOf(":")+2).split(',')[0];
                   totalSpace = Number(usedSpace) + Number(availableSpace);  
 
                 }
@@ -228,7 +228,18 @@ $(document).ready(function(){
                   }
                 }
 
+
+                
                 if(newPoolFound){
+                  // progress bar calculations 
+                  var maxSpaceMB = 200 * 1024 * 1024; 
+
+                  var usedSpaceBar = usedSpace/maxSpaceMB; 
+                  console.log("used space bar " + usedSpaceBar); 
+                  var availableSpaceBar = (totalSpace - usedSpace)/maxSpaceMB; 
+                  console.log("available space bar " + availableSpaceBar; 
+
+                  console.log("check if equal "+(100-Math.round(100*(usedSpace/totalSpace))) + " = "+ (Math.round(100*(totalSpace - usedSpace)/totalSpace))
                   zfsListFormatted += "Summary for "+zfsPoolName
                     +" -- Used Space: "+Math.round(100*usedSpace/1024)/100 
                     +" G  Total Space: "+Math.round(100*totalSpace/1024)/100
@@ -236,9 +247,9 @@ $(document).ready(function(){
                     +Math.round(100*((totalSpace/1024) -(usedSpace/1024)))/100+" G \n"
                     +'<div class="progress">'
                     +'<div class="progress-bar progress-bar-danger progress-bar-striped " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
-                    +Math.round(100*(usedSpace/totalSpace)) +'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
+                    +Math.round(usedSpaceBar) +'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
                     +'<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
-                    +Number(100-Math.round(100*(usedSpace/totalSpace))) +'%"><span class="sr-only">'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available</span>'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available </div>'
+                    +Math.round(availableSpaceBar)+'%"><span class="sr-only">'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available</span>'+Number(100-Math.round(100*(usedSpace/totalSpace)))+'% Available </div>'
                    
                     
                     +'</div>'
