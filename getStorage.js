@@ -237,10 +237,10 @@ $(document).ready(function(){
                   var progressBarWidth = 100*(totalSpace/maxSpaceMB); 
                   var usedSpaceBar = usedSpace/maxSpaceMB; 
                   console.log("used space bar " + usedSpaceBar); 
-                  var availableSpaceBar = (totalSpace - usedSpace)/maxSpaceMB; 
-                  console.log("available space bar " + availableSpaceBar; 
+                  var availableSpaceBar = 100*(totalSpace - usedSpace)/maxSpaceMB; 
+                  console.log("available space bar " + availableSpaceBar); 
 
-                  console.log("check if equal "+(100-Math.round(100*(usedSpace/totalSpace))) + " = "+ (Math.round(100*(totalSpace - usedSpace)/totalSpace)))
+                  console.log("check if equal "+(100-Math.round(100*(usedSpace/totalSpace))) + " = "+ (Math.round(100*(totalSpace - usedSpace)/totalSpace))); 
                   zfsListFormatted += "Summary for "+zfsPoolName
                     +" -- Used Space: "+Math.round(100*usedSpace/1024)/100 
                     +" G  Total Space: "+Math.round(100*totalSpace/1024)/100
