@@ -200,7 +200,7 @@ $(document).ready(function(){
 
                 if(zfsName.indexOf("/") == -1){
                   if(zfsPoolName.length != 0){
-                    zfsListFormatted += '</div></div>'; 
+                    zfsListFormatted += '</tbody></table></div></div>'; 
                     zfsListFormatted += "\n\n"; 
                   }
                   zfsPoolName = zfsName;
@@ -221,11 +221,14 @@ $(document).ready(function(){
 
                 var zfsLineFormatted = "";  
                 for(var j = 0; j < zfsLine.length; ++j){
-                  zfsLineFormatted += Math.round(zfsLine[j]/1024 * 100)/100 + " G"; 
-                  //zfsLineFormatted += zfsLine[j]/1024 + " G"; 
+                  zfsLineFormatted += '<td>'+Math.round(zfsLine[j]/1024 * 100)/100 + " G</td>"; 
+                  //zfsLineFormatted += Math.round(zfsLine[j]/1024 * 100)/100 + " G"; 
+                  ////zfsLineFormatted += zfsLine[j]/1024 + " G"; 
+                  /*
                   if(j != zfsLine.length-1){
                     zfsLineFormatted += ", "; 
                   }
+                  */
                 }
 
 
@@ -258,9 +261,14 @@ $(document).ready(function(){
                     +'</div>'
                     +'<button class="btn btn-primary storageCollapse" type="button" data-toggle="collapse" data-target="#collapse_'+group.facts.hostname+'_'+zfsPoolName+'" aria-expanded="false" aria-controls="collapse_'+group.facts.hostname+'_'+zfsPoolName+'">'+zfsPoolName+' -- View More</button>'
                     +'<div class="collapse" id="collapse_'+group.facts.hostname+'_'+zfsPoolName+'"><br><div class="well">' 
+                    +'<table><thead><tr><th>name</th><th>used</th><th>available</th><th>reservation</th><th>quota</th></tr></thead>'
+                    +'<tbody>'
+                    /*
                     +'NAME | USED | AVAILABLE | RESERVATION | QUOTA \n'; 
+                    */
                 }
-                zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
+                zfsListFormatted += '<tr><td>'+zfsName+'</td>'+zfsLineFormatted+'</tr>'; 
+                //zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
               
               //console.log("used space = "+usedSpace); 
