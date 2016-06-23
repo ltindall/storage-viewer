@@ -10,4 +10,14 @@ body {
 } 
 #indHostTable td{
   word-wrap: break-word; 
+}
+th,td{
+  padding-left: 6px; 
+  padding-right: 6px; 
+}
+.progress{
+  margin-bottom: 10px; 
+}
+.well{
+  margin-bottom: 0px; 
 } 

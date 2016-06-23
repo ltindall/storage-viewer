@@ -6,6 +6,7 @@ return 0;
 }
 
 var storageGroups = []; 
+var maxSpaceMB = 0; 
 function loadIndividual(host){ 
 
   document.getElementById("individualHost").style.display = "initial"; 
@@ -200,9 +201,8 @@ $(document).ready(function(){
 
                 if(zfsName.indexOf("/") == -1){
                   if(zfsPoolName.length != 0){
-
                     zfsListFormatted += '</tbody></table></div></div>'; 
-                    zfsListFormatted += "\n\n"; 
+                    zfsListFormatted += "<br><br><br>"; 
                   }
                   zfsPoolName = zfsName;
                   newPoolFound = true;  
@@ -236,7 +236,7 @@ $(document).ready(function(){
                 
                 if(newPoolFound){
                   // progress bar calculations 
-                  maxSpaceMB = 200 * 1024 * 1024; 
+                  maxSpaceMB = 100 * 1024 * 1024; 
 
                   var progressBarWidth = 100*(totalSpace/maxSpaceMB); 
                   /*
@@ -247,11 +247,11 @@ $(document).ready(function(){
 
                   console.log("check if equal "+(100-Math.round(100*(usedSpace/totalSpace))) + " = "+ (Math.round(100*(totalSpace - usedSpace)/totalSpace))); 
                   */
-                  zfsListFormatted += "Summary for "+zfsPoolName
+                  zfsListFormatted += '<div class="summaryInfo">Summary for '+zfsPoolName
                     +" -- Used Space: "+Math.round(100*usedSpace/1024)/100 
                     +" G  Total Space: "+Math.round(100*totalSpace/1024)/100
                     +" G  Available Space: "
-                    +Math.round(100*((totalSpace/1024) -(usedSpace/1024)))/100+" G \n"
+                    +Math.round(100*((totalSpace/1024) -(usedSpace/1024)))/100+" G </div>"
                     +'<div class="progress" style="width:'+progressBarWidth+'%">'
                     +'<div class="progress-bar progress-bar-danger progress-bar-striped " role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:'
                     +Math.round(100*(usedSpace/totalSpace))+'%"><span class="sr-only">'+Math.round(100*(usedSpace/totalSpace))+'% Full</span>'+Math.round(100*(usedSpace/totalSpace))+'% Full </div>'
@@ -268,7 +268,11 @@ $(document).ready(function(){
                     +'NAME | USED | AVAILABLE | RESERVATION | QUOTA \n'; 
                     */
                 }
-                zfsListFormatted += '<tr><td>'+zfsName+'</td>'+zfsLineFormatted+'</tr>'; 
+                zfsListFormatted += '<tr><td>'+zfsName+'</td>'+zfsLineFormatted+'</tr>'; 	
+                if(i == zfsListReport.length-1){
+                    zfsListFormatted += '</tbody></table></div></div>'; 
+                    zfsListFormatted += "\n\n"; 
+		}
                 //zfsListFormatted += zfsName+": "+zfsLineFormatted+"\n"; 
               } 
               
@@ -318,6 +322,7 @@ $(document).ready(function(){
   //  +"Time to finish first query: "+(endFirstQuery - startFirstQuery)/1000 + " sec \n"
     +"Time to finish first query: "+(endSecondQuery - startSecondQuery)/1000 + " sec \n"
     +"Time to process data: "+(endProcessing-startProcessing)/1000 + " sec \n"
+    +"Maximum space reference: "+maxSpaceMB/(1024*1024)+" TB \n"
     +"</pre>"; 
 
   $('.storageCollapse').click(function(){
