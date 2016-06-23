@@ -200,6 +200,7 @@ $(document).ready(function(){
 
                 if(zfsName.indexOf("/") == -1){
                   if(zfsPoolName.length != 0){
+
                     zfsListFormatted += '</tbody></table></div></div>'; 
                     zfsListFormatted += "\n\n"; 
                   }
@@ -235,7 +236,7 @@ $(document).ready(function(){
                 
                 if(newPoolFound){
                   // progress bar calculations 
-                  var maxSpaceMB = 200 * 1024 * 1024; 
+                  maxSpaceMB = 200 * 1024 * 1024; 
 
                   var progressBarWidth = 100*(totalSpace/maxSpaceMB); 
                   /*
